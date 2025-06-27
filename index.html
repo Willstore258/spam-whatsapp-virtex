@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam WhatsApp Virtex</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            color: #fff;
+        }
+        .container {
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            padding: 20px;
+            width: 320px;
+            text-align: center;
+            position: relative;
+            border: 1px solid #0f0;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: #fff;
+        }
+        button {
+            background-color: #0a0;
+            color: black;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #0f0;
+            box-shadow: 0 0 15px #0f0;
+        }
+        .logout {
+            color: #0f0;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-top: 20px;
+        }
+        .password-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-content {
+            display: none;
+        }
+        .owner-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #0f0;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            text-shadow: 0 0 5px #0f0;
+        }
+        .owner-info {
+            display: none;
+            position: absolute;
+            top: 30px;
+            right: 10px;
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0f0;
+            z-index: 100;
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+        .virtex-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <div class="virtex-effect" id="virtexEffect"></div>
+    
+    <div class="container" id="passwordScreen">
+        <button class="owner-btn" onclick="showOwner()">OWNER</button>
+        <div class="owner-info" id="ownerInfo">CONTACT: 6283175501824</div>
+        <div class="password-screen">
+            <div class="logo">SPAMMER VIRTEX</div>
+            <p>MASUKKAN PASSWORD</p>
+            <input type="password" id="passwordInput" placeholder="contoh: wilxhosting-spam">
+            <button onclick="checkPassword()">LOGIN</button>
+            <a href="#" class="logout" onclick="logout()">KELUAR</a>
+        </div>
+    </div>
+
+    <div class="container main-content" id="mainContent">
+        <button class="owner-btn" onclick="showOwner()">OWNER</button>
+        <div class="owner-info" id="ownerInfoMain">CONTACT: 6283175501824</div>
+        <div class="logo">SPAMMER VIRTEX</div>
+        <input type="text" id="phoneNumber" placeholder="NOMOR TARGET (62xxxx)">
+        
+        <button onclick="spamText()">VIRTEX TEXT FLOOD</button>
+        <button onclick="spamSticker()">VIRTEX STICKER BOMB</button>
+        
+        <a href="#" class="logout" onclick="logout()">KELUAR</a>
+    </div>
+
+    <script>
+        // Virtex effect
+        const virtexEffect = document.getElementById('virtexEffect');
+        const chars = "01";
+        for (let i = 0; i < 100; i++) {
+            const span = document.createElement('span');
+            span.style.position = 'absolute';
+            span.style.fontSize = Math.random() * 20 + 10 + 'px';
+            span.style.color = `rgba(0, ${Math.random() * 155 + 100}, 0, ${Math.random() * 0.5 + 0.1})`;
+            span.style.top = Math.random() * 100 + '%';
+            span.style.left = Math.random() * 100 + '%';
+            span.textContent = chars[Math.floor(Math.random() * chars.length)];
+            span.style.animation = `fall ${Math.random() * 5 + 3}s linear infinite`;
+            virtexEffect.appendChild(span);
+        }
+
+        // Add animation style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === 'spamwhatsappwilxhosting') {
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else {
+                alert('PASSWORD SALAH! Contoh: wilxhosting-spam');
+            }
+        }
+        
+        function logout() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('passwordScreen').style.display = 'block';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('phoneNumber').value = '';
+        }
+        
+        function spamText() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!phoneNumber.startsWith('62') || phoneNumber.length < 10) {
+                alert('NOMOR HARUS 62 DAN MINIMAL 10 DIGIT!');
+                return;
+            }
+            
+            const virtexMessages = [
+                '⚠️ VIRTEX ACTIVATED ⚠️',
+                '🚀 SYSTEM OVERLOAD 🚀',
+                '💣 BOMB INCOMING 💣',
+                '🔥 FIREWALL BREACHED 🔥',
+                '🌀 VIRUS DETECTED 🌀',
+                '💀 SYSTEM CRASH 💀',
+                '☠️ TARGET LOCKED ☠️',
+                '👾 HACK IN PROGRESS 👾',
+                '🛑 CRITICAL ERROR 🛑',
+                '📛 WARNING: VIRTEX 📛'
+            ];
+            
+            // Create 50 different messages with random characters
+            const messages = [];
+            for (let i = 0; i < 50; i++) {
+                let msg = virtexMessages[Math.floor(Math.random() * virtexMessages.length)] + '\n';
+                for (let j = 0; j < 20; j++) {
+                    msg += String.fromCharCode(Math.floor(Math.random() * 1000) + 5000) + ' ';
+                }
+                messages.push(msg);
+            }
+            
+            // Open multiple WhatsApp tabs with different messages
+            for (let i = 0; i < 20; i++) {
+                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+                const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(randomMsg.repeat(10))}`;
+                window.open(url, '_blank');
+            }
+        }
+        
+        function spamSticker() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!phoneNumber.startsWith('62') || phoneNumber.length < 10) {
+                alert('NOMOR HARUS 62 DAN MINIMAL 10 DIGIT!');
+                return;
+            }
+            
+            const virtexStickers = [
+                '👹'.repeat(100),
+                '💢'.repeat(100),
+                '☠️'.repeat(50),
+                '💣'.repeat(100),
+                '⚠️'.repeat(100),
+                '🌀'.repeat(100),
+                '🔴'.repeat(100),
+                '🛑'.repeat(100),
+                '📛'.repeat(100),
+                '💀'.repeat(100)
+            ];
+            
+            // Open multiple WhatsApp tabs with different sticker patterns
+            for (let i = 0; i < 20; i++) {
+                const randomSticker = virtexStickers[Math.floor(Math.random() * virtexStickers.length)];
+                const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(randomSticker)}`;
+                window.open(url, '_blank');
+            }
+        }
+
+        function showOwner() {
+            const ownerInfo = document.getElementById('ownerInfo') || document.getElementById('ownerInfoMain');
+            ownerInfo.style.display = ownerInfo.style.display === 'block' ? 'none' : 'block';
+            
+            setTimeout(() => {
+                ownerInfo.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+  </html>
